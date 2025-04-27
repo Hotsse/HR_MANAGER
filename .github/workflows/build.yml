@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-  hr-manager-fe:
+  build-fe:
     runs-on: ubuntu-latest
     steps:
       # 1. Repository Checkout
