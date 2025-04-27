@@ -1,10 +1,10 @@
-import {DataGrid, GridColDef} from "@mui/x-data-grid";
+import {DataGrid, GridColDef, GridRowIdGetter} from "@mui/x-data-grid";
 import Paper from "@mui/material/Paper";
 import {useEffect, useState} from "react";
 
 const CustomPagerGrid = (props: Props) => {
 
-    const { columns, data, onSearch, onSelectedRow } = props;
+    const { columns, data, getRowId, onSearch, onSelectedRow } = props;
 
     useEffect(() => {
         if(data) {
@@ -29,14 +29,14 @@ const CustomPagerGrid = (props: Props) => {
             <DataGrid
                 columns={columns}
                 rows={contents}
-                getRowId={(row => row.code)}
+                getRowId={getRowId}
                 rowCount={totalElements}
                 paginationMode={"server"}
                 paginationModel={{ page: page, pageSize: size }}
                 onPaginationModelChange={(pagination) => onSearch(pagination.page)}
                 onRowSelectionModelChange={(row) => {
                     const id = row.ids.values().next().value;
-                    const selected = contents.find((item) => item.code === id);
+                    const selected = contents.find((item) => getRowId(item) === id);
                     onSelectedRow(selected);
                 }}
                 sx={{ border: 0 }}
@@ -48,6 +48,7 @@ const CustomPagerGrid = (props: Props) => {
 type Props = {
     columns: GridColDef[],
     data: any,
+    getRowId: GridRowIdGetter<any>,
     onSearch: (page: number) => void,
     onSelectedRow: (row: any) => void,
 }

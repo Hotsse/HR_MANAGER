@@ -5,41 +5,50 @@ import {useForm} from "react-hook-form";
 import axios from "axios";
 import {API_URL} from "../../../../constants/constants.ts";
 import {useEffect} from "react";
-import {Department} from "../types/department.types.ts";
+import {Employee} from "../types/employee.types.ts";
 
 const SaveModal = (props: Props) => {
 
     const {openModal, setOpenModal, onSearch, initialData} = props;
     const {
         register, getValues, reset
-    } = useForm<DepartmentSaveForm>();
+    } = useForm<EmployeeSaveForm>();
 
     useEffect(() => {
         reset({
-            code: initialData?.code,
+            seq: initialData?.seq,
+            accountId: initialData?.accountId,
             name: initialData?.name,
-            upperCode: initialData?.upperCode,
+            deptCode: initialData?.deptCode,
+            startDate: initialData?.startDate,
+            endDate: initialData?.endDate,
         });
     }, [initialData]);
 
     return (
         <CustomModal openModal={openModal}>
             <TextField
-                {...register("code")}
-                label={"부서코드"}
+                {...register("seq")}
+                label={"사원번호"}
                 variant={"standard"}
                 fullWidth={true}
-                disabled={!!initialData}
+                disabled={true}
+            />
+            <TextField
+                {...register("accountId")}
+                label={"사원ID"}
+                variant={"standard"}
+                fullWidth={true}
             />
             <TextField
                 {...register("name")}
-                label={"부서명"}
+                label={"사원명"}
                 variant={"standard"}
                 fullWidth={true}
             />
             <TextField
-                {...register("upperCode")}
-                label={"상위부서코드"}
+                {...register("deptCode")}
+                label={"부서코드"}
                 variant={"standard"}
                 fullWidth={true}
             />
@@ -76,7 +85,7 @@ const SaveModal = (props: Props) => {
     function save() {
         const data = getValues();
         console.log(data);
-        axios.post(`${API_URL}/api/admin/department`, data)
+        axios.post(`${API_URL}/api/admin/employee`, data)
             .then(() => {
                 alert("저장되었습니다.");
                 reset();
@@ -93,13 +102,14 @@ type Props = {
     openModal: boolean,
     setOpenModal: (open: boolean) => void,
     onSearch: (page: number) => void,
-    initialData: Department | undefined,
+    initialData: Employee | undefined,
 }
 
-type DepartmentSaveForm = {
-    code: string,
+type EmployeeSaveForm = {
+    seq: number,
+    accountId: string,
     name: string,
-    upperCode?: string,
+    deptCode: string,
     startDate: string,
     endDate?: string,
 }

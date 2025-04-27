@@ -1,27 +1,29 @@
 import {useState} from "react";
-import {Button, ButtonGroup} from "@mui/material";
 import {GridColDef} from '@mui/x-data-grid';
-import SaveModal from "../../../features/admin/department/components/SaveModal.tsx";
 import axios from "axios";
 import {API_URL} from "../../../constants/constants.ts";
-import CustomPagerGrid from "../../../features/common/components/CustomPagerGrid.tsx";
 import {Page} from "../../../features/common/types/common.types.ts";
-import SearchForm from "../../../features/admin/department/components/SearchForm.tsx";
-import {Department} from "../../../features/admin/department/types/department.types.ts";
+import {Employee} from "../../../features/admin/employee/types/employee.types.ts";
+import SaveModal from "../../../features/admin/employee/components/SaveModal.tsx";
+import {Button, ButtonGroup} from "@mui/material";
+import CustomPagerGrid from "../../../features/common/components/CustomPagerGrid.tsx";
+import SearchForm from "../../../features/admin/employee/components/SearchForm.tsx";
 
-const DepartmentManagementPage = () => {
+const EmployeeManagementPage = () => {
 
     const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
-    const [selectedRow, setSelectedRow] = useState<Department | undefined>();
+    const [selectedRow, setSelectedRow] = useState<Employee | undefined>();
 
     const columns: GridColDef[] = [
-        { field: 'code', headerName: '부서코드', width: 150 },
-        { field: 'name', headerName: '부서명', width: 150 },
-        { field: 'upperCode', headerName: '상위부서코드', width: 150 },
+        { field: 'seq', headerName: '사원번호', width: 150 },
+        { field: 'accountId', headerName: '사원ID', width: 150 },
+        { field: 'name', headerName: '사원명', width: 150 },
+        { field: 'deptCode', headerName: '부서코드', width: 150 },
+        { field: 'deptName', headerName: '부서명', width: 150 },
         { field: 'startDate', headerName: '시작일', width: 150 },
         { field: 'endDate', headerName: '종료일', width: 150 },
     ];
-    const [data, setData] = useState<Page<Department>>();
+    const [data, setData] = useState<Page<Employee>>();
 
     return (
         <div>
@@ -31,12 +33,12 @@ const DepartmentManagementPage = () => {
                 <Button variant={"contained"} onClick={() => setIsOpenModal(true)}>
                     {!selectedRow ? "추가" : "변경"}
                 </Button>
-                {selectedRow && <Button variant={"outlined"} onClick={() => handleDelete(selectedRow.code)}>제거</Button>}
+                {selectedRow && <Button variant={"outlined"} onClick={() => handleDelete(selectedRow.seq)}>제거</Button>}
             </ButtonGroup>
             <CustomPagerGrid
                 columns={columns}
                 data={data}
-                getRowId={(row) => row.code}
+                getRowId={(row) => row.seq}
                 onSearch={onSearch}
                 onSelectedRow={(row) => setSelectedRow(row)}
             />
@@ -49,7 +51,7 @@ const DepartmentManagementPage = () => {
 
         const data = {page, keyword};
 
-        axios.get<Page<Department>>(`${API_URL}/api/admin/department`, {params: data})
+        axios.get<Page<Employee>>(`${API_URL}/api/admin/employee`, {params: data})
             .then(response => {
                 console.log(response);
                 setData(response.data);
@@ -59,8 +61,8 @@ const DepartmentManagementPage = () => {
             });
     }
 
-    function handleDelete(deptCode: string) {
-        axios.delete(`${API_URL}/api/admin/department/${deptCode}`)
+    function handleDelete(employeeSeq: number) {
+        axios.delete(`${API_URL}/api/admin/employee/${employeeSeq}`)
             .then(() => {
                 alert("삭제되었습니다.");
                 onSearch(0);
@@ -71,4 +73,6 @@ const DepartmentManagementPage = () => {
     }
 }
 
-export default DepartmentManagementPage;
+
+
+export default EmployeeManagementPage;
