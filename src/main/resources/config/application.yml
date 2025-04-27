@@ -1,0 +1,26 @@
+server:
+  port : 8080
+  
+spring:
+  h2:
+    console:
+      enabled: true
+      path: /test_db
+      settings:
+        web-allow-others: true
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:file:./h2/test_db;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;IFEXISTS=FALSE
+    username: test
+    password: 1234
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+    
+logging:
+  pattern:
+    console: "[%-5level] %d{yyyy-MM-dd HH:mm:ss} : %30logger{5} - %msg%n"
+  level:
+    root: info
+    com.hotsse.hrmanager: debug
