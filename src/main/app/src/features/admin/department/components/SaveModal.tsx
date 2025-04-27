@@ -43,6 +43,23 @@ const SaveModal = (props: Props) => {
                 variant={"standard"}
                 fullWidth={true}
             />
+            <TextField
+                {...register("startDate")}
+                label={"시작일"}
+                type={"date"}
+                slotProps={{ inputLabel: { shrink: true } }}
+                variant={"standard"}
+                fullWidth={true}
+            />
+            <TextField
+                {...register("endDate")}
+                label={"종료일"}
+                placeholder={"YYYY-MM-DD"}
+                type={"date"}
+                slotProps={{ inputLabel: { shrink: true } }}
+                variant={"standard"}
+                fullWidth={true}
+            />
             <SaveButtonGroup>
                 <Button variant={"outlined"} onClick={close}>취소</Button>
                 <Button variant={"contained"} onClick={save}>저장</Button>
@@ -83,6 +100,8 @@ type DepartmentSaveForm = {
     code: string,
     name: string,
     upperCode?: string,
+    startDate: string,
+    endDate?: string,
 }
 
 export default SaveModal;

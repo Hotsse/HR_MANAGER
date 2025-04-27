@@ -24,10 +24,11 @@ public class DepartmentManagementController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<DepartmentDto>> get(@RequestParam(defaultValue = "0") int page,
+    public ResponseEntity<Page<DepartmentDto>> get(@RequestParam(defaultValue = "") String keyword,
+                                                   @RequestParam(defaultValue = "0") int page,
                                                    @RequestParam(defaultValue = "10") int size) {
         PageRequest pageRequest = PageRequest.of(page, size);
-        Page<DepartmentDto> departments = departmentManagementService.getDepartments(pageRequest);
+        Page<DepartmentDto> departments = departmentManagementService.getDepartments(keyword, pageRequest);
         return ResponseEntity.ok(departments);
     }
 
@@ -35,5 +36,11 @@ public class DepartmentManagementController {
     public ResponseEntity<String> createDepartment(@RequestBody DepartmentSaveDto dto) {
         String code = departmentManagementService.createDepartment(dto);
         return ResponseEntity.ok(code);
+    }
+
+    @DeleteMapping("/{deptCode}")
+    public ResponseEntity<Void> deleteDepartment(@PathVariable("deptCode") String deptCode) {
+        departmentManagementService.deleteDepartment(deptCode);
+        return ResponseEntity.noContent().build();
     }
 }

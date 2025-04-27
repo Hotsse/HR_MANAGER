@@ -6,6 +6,7 @@ import axios from "axios";
 import {API_URL} from "../../../constants/constants.ts";
 import CustomPagerGrid from "../../../features/common/components/CustomPagerGrid.tsx";
 import {Page} from "../../../features/common/types/common.types.ts";
+import SearchForm from "../../../features/admin/department/components/SearchForm.tsx";
 
 const DepartmentManagementPage = () => {
 
@@ -23,22 +24,39 @@ const DepartmentManagementPage = () => {
 
     return (
         <div>
+            <SearchForm onSearch={onSearch} />
+
             <ButtonGroup>
                 <Button variant={"contained"} onClick={() => setIsOpenModal(true)}>
                     {!selectedRow ? "추가" : "변경"}
                 </Button>
+                {selectedRow && <Button variant={"outlined"} onClick={() => handleDelete(selectedRow.code)}>제거</Button>}
             </ButtonGroup>
-
             <CustomPagerGrid columns={columns} data={data} onSearch={onSearch} onSelectedRow={(row) => setSelectedRow(row)} />
+
             <SaveModal openModal={isOpenModal} setOpenModal={setIsOpenModal} onSearch={onSearch} initialData={selectedRow} />
         </div>
     );
 
-    function onSearch(page: number) {
-        axios.get<Page<Department>>(`${API_URL}/api/admin/department?page=${page}`)
+    function onSearch(page: number, keyword?: string) {
+
+        const data = {page, keyword};
+
+        axios.get<Page<Department>>(`${API_URL}/api/admin/department`, {params: data})
             .then(response => {
                 console.log(response);
                 setData(response.data);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
+
+    function handleDelete(deptCode: string) {
+        axios.delete(`${API_URL}/api/admin/department/${deptCode}`)
+            .then(() => {
+                alert("삭제되었습니다.");
+                onSearch(0);
             })
             .catch(error => {
                 console.log(error);
@@ -50,6 +68,8 @@ export type Department = {
     code: string;
     name: string;
     upperCode: string | undefined;
+    startDate: string;
+    endDate: string | undefined;
 }
 
 export default DepartmentManagementPage;

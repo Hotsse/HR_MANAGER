@@ -23,13 +23,20 @@ public class DepartmentManagementService {
     }
 
     @Transactional
-    public Page<DepartmentDto> getDepartments(PageRequest pageRequest) {
-        return departmentRepository.findAll(pageRequest).map(DepartmentDto::convert);
+    public Page<DepartmentDto> getDepartments(String keyword, PageRequest pageRequest) {
+        return departmentRepository.findAllByNameContaining(keyword, pageRequest).map(DepartmentDto::convert);
     }
 
     @Transactional
     public String createDepartment(DepartmentSaveDto dto) {
         Department result = departmentRepository.save(Department.of(dto));
         return result.getCode();
+    }
+
+    @Transactional
+    public void deleteDepartment(String code) {
+        Department department = departmentRepository.findById(code)
+                .orElseThrow(() -> new IllegalArgumentException("Department not found with code: " + code));
+        departmentRepository.delete(department);
     }
 }
