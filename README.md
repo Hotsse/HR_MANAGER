@@ -18,12 +18,12 @@
 - https://github.com/users/Hotsse/packages/container/package/hr-manager-api
 ``` bash
 docker pull ghcr.io/hotsse/hr-manager-api:latest
-docker run -p 8080:8080 ghcr.io/hotsse/hr-manager-api:latest
+docker run --platform=linux/amd64 -p 8080:8080 ghcr.io/hotsse/hr-manager-api:latest
 ```
 
 ### HR_MANAGER Frontend 서비스
 - https://github.com/users/Hotsse/packages/container/package/hr-manager-fe
 ``` bash
 docker pull ghcr.io/hotsse/hr-manager-fe:latest
-docker run -p 80:80 ghcr.io/hotsse/hr-manager-fe:latest
+docker run --platform=linux/amd64 -p 80:80 ghcr.io/hotsse/hr-manager-fe:latest
 ```
