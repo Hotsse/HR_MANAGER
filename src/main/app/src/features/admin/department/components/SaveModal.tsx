@@ -19,6 +19,8 @@ const SaveModal = (props: Props) => {
             code: initialData?.code,
             name: initialData?.name,
             upperCode: initialData?.upperCode,
+            startDate: initialData?.startDate,
+            endDate: initialData?.endDate,
         });
     }, [initialData]);
 
