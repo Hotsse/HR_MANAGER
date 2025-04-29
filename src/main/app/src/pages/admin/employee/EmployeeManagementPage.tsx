@@ -15,13 +15,15 @@ const EmployeeManagementPage = () => {
     const [selectedRow, setSelectedRow] = useState<Employee | undefined>();
 
     const columns: GridColDef[] = [
-        { field: 'seq', headerName: '사원번호', width: 150 },
-        { field: 'accountId', headerName: '사원ID', width: 150 },
+        { field: 'seq', headerName: '사원번호', width: 100 },
+        { field: 'accountId', headerName: '사원ID', width: 100 },
         { field: 'name', headerName: '사원명', width: 150 },
         { field: 'deptCode', headerName: '부서코드', width: 150 },
         { field: 'deptName', headerName: '부서명', width: 150 },
-        { field: 'startDate', headerName: '시작일', width: 150 },
-        { field: 'endDate', headerName: '종료일', width: 150 },
+        { field: 'positionCode', headerName: '직책코드', width: 150 },
+        { field: 'positionName', headerName: '직책명', width: 100 },
+        { field: 'startDate', headerName: '시작일', width: 100 },
+        { field: 'endDate', headerName: '종료일', width: 100 },
     ];
     const [data, setData] = useState<Page<Employee>>();
 

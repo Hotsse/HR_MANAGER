@@ -4,6 +4,7 @@ create table employee (
     password char(64),
     name varchar(256) not null,
     dept_code varchar(32) not null,
+    position_code varchar(32) not null,
     start_date date not null,
     end_date date
 )

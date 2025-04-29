@@ -1,4 +1,4 @@
-package com.hotsse.hrmanager.domain.employee.dto;
+package com.hotsse.hrmanager.domain.position.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,13 +9,11 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-public class EmployeeSaveDto {
+public class PositionSaveDto {
 
-    private Long seq;
-    private String accountId;
+    private String code;
     private String name;
-    private String deptCode;
-    private String positionCode;
+    private int level;
     private LocalDate startDate;
     private LocalDate endDate;
 }

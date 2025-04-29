@@ -3,6 +3,7 @@ import DashboardPage from "../pages/DashboardPage.tsx";
 import DepartmentManagementPage from "../pages/admin/department/DepartmentManagementPage.tsx";
 import DefaultLayout from "../layouts/DefaultLayout.tsx";
 import EmployeeManagementPage from "../pages/admin/employee/EmployeeManagementPage.tsx";
+import PositionManagementPage from "../pages/admin/position/PositionManagementPage.tsx";
 
 export const router = createBrowserRouter(
     [
@@ -17,6 +18,10 @@ export const router = createBrowserRouter(
                 {
                     path: "admin/department-management",
                     element: <DepartmentManagementPage />
+                },
+                {
+                    path: "admin/position-management",
+                    element: <PositionManagementPage />
                 },
                 {
                     path: "admin/employee-management",

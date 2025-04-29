@@ -5,22 +5,20 @@ import {useForm} from "react-hook-form";
 import axios from "axios";
 import {API_URL} from "../../../../constants/constants.ts";
 import {useEffect} from "react";
-import {Employee} from "../types/employee.types.ts";
+import {Position} from "../types/position.types.ts";
 
 const SaveModal = (props: Props) => {
 
     const {openModal, setOpenModal, onSearch, initialData} = props;
     const {
         register, getValues, reset
-    } = useForm<EmployeeSaveForm>();
+    } = useForm<PositionSaveForm>();
 
     useEffect(() => {
         reset({
-            seq: initialData?.seq,
-            accountId: initialData?.accountId,
+            code: initialData?.code,
             name: initialData?.name,
-            deptCode: initialData?.deptCode,
-            positionCode: initialData?.positionCode,
+            level: initialData?.level,
             startDate: initialData?.startDate,
             endDate: initialData?.endDate,
         });
@@ -29,33 +27,21 @@ const SaveModal = (props: Props) => {
     return (
         <CustomModal openModal={openModal}>
             <TextField
-                {...register("seq")}
-                label={"사원번호"}
+                {...register("code")}
+                label={"직책코드"}
                 variant={"standard"}
                 fullWidth={true}
-                disabled={true}
-            />
-            <TextField
-                {...register("accountId")}
-                label={"사원ID"}
-                variant={"standard"}
-                fullWidth={true}
+                disabled={!!initialData}
             />
             <TextField
                 {...register("name")}
-                label={"사원명"}
+                label={"직책명"}
                 variant={"standard"}
                 fullWidth={true}
             />
             <TextField
-                {...register("deptCode")}
-                label={"부서코드"}
-                variant={"standard"}
-                fullWidth={true}
-            />
-            <TextField
-                {...register("positionCode")}
-                label={"직책코드"}
+                {...register("level")}
+                label={"직책레벨"}
                 variant={"standard"}
                 fullWidth={true}
             />
@@ -92,7 +78,7 @@ const SaveModal = (props: Props) => {
     function save() {
         const data = getValues();
         console.log(data);
-        axios.post(`${API_URL}/api/admin/employee`, data)
+        axios.post(`${API_URL}/api/admin/position`, data)
             .then(() => {
                 alert("저장되었습니다.");
                 reset();
@@ -109,15 +95,13 @@ type Props = {
     openModal: boolean,
     setOpenModal: (open: boolean) => void,
     onSearch: (page: number) => void,
-    initialData: Employee | undefined,
+    initialData: Position | undefined,
 }
 
-type EmployeeSaveForm = {
-    seq: number,
-    accountId: string,
+type PositionSaveForm = {
+    code: string,
     name: string,
-    deptCode: string,
-    positionCode: string,
+    level: number,
     startDate: string,
     endDate?: string,
 }

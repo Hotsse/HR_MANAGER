@@ -4,6 +4,8 @@ export type Employee = {
     name: string;
     deptCode: string,
     deptName: string,
+    positionCode: string,
+    positionName: string,
     startDate: string,
     endDate: string | undefined,
 }

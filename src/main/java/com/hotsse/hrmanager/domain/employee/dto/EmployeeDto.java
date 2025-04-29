@@ -19,6 +19,8 @@ public class EmployeeDto {
     private String name;
     private String deptCode;
     private String deptName;
+    private String positionCode;
+    private String positionName;
     private LocalDate startDate;
     private LocalDate endDate;
 
@@ -29,6 +31,8 @@ public class EmployeeDto {
                 .name(employee.getName())
                 .deptCode(employee.getDeptCode())
                 .deptName(employee.getDepartment() != null ? employee.getDepartment().getName() : null)
+                .positionCode(employee.getPositionCode())
+                .positionName(employee.getPosition() != null ? employee.getPosition().getName() : null)
                 .startDate(employee.getStartDate())
                 .endDate(employee.getEndDate())
                 .build();

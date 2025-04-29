@@ -37,6 +37,7 @@ const HeaderBar = () => {
                         onClose={handleClose}
                     >
                         <MenuItem onClick={() => navigate("/admin/department-management")}>부서 관리</MenuItem>
+                        <MenuItem onClick={() => navigate("/admin/position-management")}>직책 관리</MenuItem>
                         <MenuItem onClick={() => navigate("/admin/employee-management")}>사원 관리</MenuItem>
                     </Menu>
                     <Typography
