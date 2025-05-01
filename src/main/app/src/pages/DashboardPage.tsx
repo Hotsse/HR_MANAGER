@@ -3,6 +3,9 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import {API_URL} from "../constants/constants.ts";
 import {useForm} from "react-hook-form";
+import {GridColDef} from "@mui/x-data-grid";
+import {Page} from "../features/common/types/common.types.ts";
+import CustomPagerGrid from "../features/common/components/CustomPagerGrid.tsx";
 
 const DashboardPage = () => {
 
@@ -24,9 +27,24 @@ const DashboardPage = () => {
         getTodayWorkLog();
     }, []);
 
+    const columns: GridColDef[] = [
+        { field: 'workDate', headerName: '업무일', width: 150 },
+        { field: 'clockIn', headerName: '출근일시', width: 150 },
+        { field: 'clockOut', headerName: '퇴근일시', width: 150 },
+        { field: 'workStatus', headerName: '출근코드', width: 150 },
+    ];
+    const [data, setData] = useState<Page<EmployeeWorkLog>>();
+
     return (
         <div>
             {renderClockInOutButton()}
+            <CustomPagerGrid
+                columns={columns}
+                data={data}
+                getRowId={(row) => row.id}
+                onSearch={onSearch}
+                onSelectedRow={() => {}}
+            />
         </div>
     );
 
@@ -102,12 +120,37 @@ const DashboardPage = () => {
                 alert("퇴근에 실패했습니다.");
             })
     }
+
+    function onSearch(page: number) {
+
+        const accountId = getValues("accountId");
+        const data = {page, accountId};
+
+        axios.get<Page<EmployeeWorkLog>>(`${API_URL}/api/work-log`, {params: data})
+            .then(response => {
+                console.log(response);
+                setData(response.data);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
 }
 
 type EmployeeWorkStatus = {
     workStatus: string,
     isLateClockIn: boolean,
-    workLogs: any[],
+    workLogs: EmployeeWorkLog[],
+}
+
+type EmployeeWorkLog = {
+    id: number,
+    accountId: string,
+    workDate: string,
+    clockIn: string,
+    clockOut?: string,
+    workStatus: string,
+    reason?: string
 }
 
 type WorkLogSaveForm = {

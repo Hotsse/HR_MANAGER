@@ -8,6 +8,8 @@ import com.hotsse.hrmanager.domain.employeeWorkLog.dto.EmployeeWorkStatusDto;
 import com.hotsse.hrmanager.domain.employeeWorkLog.entity.EmployeeWorkLog;
 import com.hotsse.hrmanager.domain.employeeWorkLog.repository.EmployeeWorkLogRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -36,6 +38,11 @@ public class EmployeeWorkLogService {
 
     public LocalDate getWorkDate() {
         return getWorkDate(LocalDateTime.now());
+    }
+
+    public Page<EmployeeWorkLogDto> getEmployeeWorkLogs(String accountId, PageRequest pageRequest) {
+        return workLogRepository.findAllByAccountIdOrderByIdDesc(accountId, pageRequest)
+                .map(EmployeeWorkLogDto::convert);
     }
 
     public EmployeeWorkStatusDto getTodayWorkStatus(String accountId) {

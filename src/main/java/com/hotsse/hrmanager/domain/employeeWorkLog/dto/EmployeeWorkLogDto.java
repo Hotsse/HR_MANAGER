@@ -1,5 +1,6 @@
 package com.hotsse.hrmanager.domain.employeeWorkLog.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.hotsse.hrmanager.domain.employeeWorkLog.constants.WorkLogStatus;
 import com.hotsse.hrmanager.domain.employeeWorkLog.entity.EmployeeWorkLog;
 import lombok.AllArgsConstructor;
@@ -19,7 +20,9 @@ public class EmployeeWorkLogDto {
     private Long id;
     private String accountId;
     private LocalDate workDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM-dd HH:mm")
     private LocalDateTime clockIn;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM-dd HH:mm")
     private LocalDateTime clockOut;
     private WorkLogStatus workStatus;
     private String reason;
