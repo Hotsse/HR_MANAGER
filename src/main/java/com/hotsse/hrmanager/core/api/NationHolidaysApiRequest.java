@@ -24,4 +24,8 @@ public class NationHolidaysApiRequest implements ApiRequest<NationHolidaysApiRes
     @Builder.Default
     @JsonProperty("_type")
     private String type = "json";
+
+    @Builder.Default
+    @JsonProperty("numOfRows")
+    private int numOfRows = 1000;
 }

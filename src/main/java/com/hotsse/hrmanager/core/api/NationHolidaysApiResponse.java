@@ -14,40 +14,42 @@ import java.util.List;
 public class NationHolidaysApiResponse implements ApiResponse {
 
     @JsonProperty("response")
-    private Response response;
+    private NationHolidaysResponse response;
 
     @Data
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static class Response {
+    public static class NationHolidaysResponse {
 
         @JsonProperty("body")
-        private Body body;
+        private NationHolidaysBody body;
     }
 
     @Data
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static class Body {
+    public static class NationHolidaysBody {
 
         @JsonProperty("items")
-        private Items items;
+        private NationHolidaysItems items;
     }
 
     @Data
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static class Items {
+    public static class NationHolidaysItems {
 
         @JsonProperty("item")
-        private List<Holiday> item;
+        private List<NationHolidaysHoliday> item;
     }
 
     @Data
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static class Holiday {
+    public static class NationHolidaysHoliday {
 
         private String dateKind;
         private String dateName;
         private String isHoliday;
-        private long locdate;
+
+        @JsonProperty("locdate")
+        private String locDate;
         private int seq;
     }
 }

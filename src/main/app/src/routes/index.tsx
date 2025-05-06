@@ -4,6 +4,7 @@ import DepartmentManagementPage from "../pages/admin/department/DepartmentManage
 import DefaultLayout from "../layouts/DefaultLayout.tsx";
 import EmployeeManagementPage from "../pages/admin/employee/EmployeeManagementPage.tsx";
 import PositionManagementPage from "../pages/admin/position/PositionManagementPage.tsx";
+import HolidayManagementPage from "../pages/admin/holiday/HolidayManagementPage.tsx";
 
 export const router = createBrowserRouter(
     [
@@ -26,6 +27,10 @@ export const router = createBrowserRouter(
                 {
                     path: "admin/employee-management",
                     element: <EmployeeManagementPage />
+                },
+                {
+                    path: "admin/holiday-management",
+                    element: <HolidayManagementPage />
                 },
             ]
         },
