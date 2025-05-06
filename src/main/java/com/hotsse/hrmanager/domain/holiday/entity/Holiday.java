@@ -37,11 +37,11 @@ public class Holiday {
     private YearMonth yearMonth;
 
     @Builder
-    public Holiday(LocalDate holidayDate, HolidayType type, String description, YearMonth yearMonth) {
+    public Holiday(LocalDate holidayDate, HolidayType type, String description) {
         this.holidayDate = holidayDate;
         this.type = type;
         this.description = description;
-        this.yearMonth = yearMonth;
+        this.yearMonth = YearMonth.from(holidayDate);
     }
 
     public static Holiday of(HolidaySaveDto dto) {
@@ -49,7 +49,6 @@ public class Holiday {
                 .holidayDate(dto.getHolidayDate())
                 .type(dto.getType())
                 .description(dto.getDescription())
-                .yearMonth(dto.getYearMonth())
                 .build();
     }
 }

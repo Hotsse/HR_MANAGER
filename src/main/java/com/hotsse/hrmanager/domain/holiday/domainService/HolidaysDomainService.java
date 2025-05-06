@@ -35,7 +35,6 @@ public class HolidaysDomainService {
             if (dow == DayOfWeek.SATURDAY || dow == DayOfWeek.SUNDAY) {
                 HolidaySaveDto dto = HolidaySaveDto.builder()
                         .holidayDate(date)
-                        .yearMonth(yearMonth)
                         .description(dow.getDisplayName(TextStyle.SHORT, Locale.KOREAN))
                         .type(dow == DayOfWeek.SATURDAY ? HolidayType.SATURDAY : HolidayType.SUNDAY)
                         .build();
@@ -61,6 +60,7 @@ public class HolidaysDomainService {
                 .serviceKey(serviceKey)
                 .build();
 
+        //TODO: 공휴일 없는 경우 에러처리 필요
         return apiCaller.call(ApiType.PUBLIC_DATA_NATIONAL_HOLIDAYS, request, NationHolidaysApiResponse.class);
     }
 
@@ -71,7 +71,6 @@ public class HolidaysDomainService {
                     LocalDate date = LocalDate.parse(n.getLocDate(), formatter);
                     return HolidaySaveDto.builder()
                             .holidayDate(date)
-                            .yearMonth(YearMonth.from(date))
                             .description(n.getDateName())
                             .type(HolidayType.NATION_HOLIDAY)
                             .build();

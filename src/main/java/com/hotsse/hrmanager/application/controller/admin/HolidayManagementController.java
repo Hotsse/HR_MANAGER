@@ -3,6 +3,7 @@ package com.hotsse.hrmanager.application.controller.admin;
 import com.hotsse.hrmanager.application.service.admin.HolidayManagementService;
 import com.hotsse.hrmanager.domain.holiday.dto.HolidayDto;
 import com.hotsse.hrmanager.domain.holiday.dto.HolidaySaveDto;
+import com.hotsse.hrmanager.domain.holiday.dto.HolidaySyncDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,9 +19,9 @@ public class HolidayManagementController {
 
     private final HolidayManagementService holidayManagementService;
 
-    @PostMapping
-    public ResponseEntity<Void> sync(@RequestParam YearMonth yearMonth) {
-        holidayManagementService.syncHolidays(yearMonth);
+    @PostMapping("/sync")
+    public ResponseEntity<Void> sync(@RequestBody HolidaySyncDto dto) {
+        holidayManagementService.syncHolidays(dto.getYearMonth());
         return ResponseEntity.noContent().build();
     }
 

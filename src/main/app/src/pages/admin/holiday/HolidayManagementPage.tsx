@@ -7,16 +7,19 @@ import {Button, ButtonGroup} from "@mui/material";
 import CustomPagerGrid from "../../../features/common/components/CustomPagerGrid.tsx";
 import SearchForm from "../../../features/admin/holiday/components/SearchForm.tsx";
 import {Holiday} from "../../../features/admin/holiday/types/holiday.types.ts";
+import SaveModal from "../../../features/admin/holiday/components/SaveModal.tsx";
+import SyncModal from "../../../features/admin/holiday/components/SyncModal.tsx";
 
 const HolidayManagementPage = () => {
 
     const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
+    const [isOpenSyncModal, setIsOpenSyncModal] = useState<boolean>(false);
     const [selectedRow, setSelectedRow] = useState<Holiday | undefined>();
 
     const columns: GridColDef[] = [
         { field: 'id', headerName: 'id', width: 100 },
         { field: 'holidayDate', headerName: '휴무일', width: 100 },
-        { field: 'typeName', headerName: '구분명', width: 100 },
+        { field: 'typeName', headerName: '휴무구분', width: 100 },
         { field: 'description', headerName: '비고', width: 200 },
     ];
     const [data, setData] = useState<Page<Holiday>>();
@@ -30,6 +33,7 @@ const HolidayManagementPage = () => {
                     {!selectedRow ? "추가" : "변경"}
                 </Button>
                 {selectedRow && <Button variant={"outlined"} onClick={() => handleDelete(selectedRow.id)}>제거</Button>}
+                <Button variant={"contained"} onClick={() => setIsOpenSyncModal(true)}>동기화</Button>
             </ButtonGroup>
             <CustomPagerGrid
                 columns={columns}
@@ -38,6 +42,10 @@ const HolidayManagementPage = () => {
                 onSearch={onSearch}
                 onSelectedRow={(row) => setSelectedRow(row)}
             />
+
+
+            <SaveModal openModal={isOpenModal} setOpenModal={setIsOpenModal} onSearch={onSearch} initialData={selectedRow} />
+            <SyncModal openModal={isOpenSyncModal} setOpenModal={setIsOpenSyncModal} onSearch={onSearch} />
         </div>
     );
 
