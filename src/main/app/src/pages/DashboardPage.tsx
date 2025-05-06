@@ -31,7 +31,7 @@ const DashboardPage = () => {
         { field: 'workDate', headerName: '업무일', width: 150 },
         { field: 'clockIn', headerName: '출근일시', width: 150 },
         { field: 'clockOut', headerName: '퇴근일시', width: 150 },
-        { field: 'workStatus', headerName: '출근코드', width: 150 },
+        { field: 'workStatusName', headerName: '출근구분', width: 150 },
     ];
     const [data, setData] = useState<Page<EmployeeWorkLog>>();
 

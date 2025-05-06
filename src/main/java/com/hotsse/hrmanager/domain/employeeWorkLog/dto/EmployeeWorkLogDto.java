@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -26,6 +27,10 @@ public class EmployeeWorkLogDto {
     private LocalDateTime clockOut;
     private WorkLogStatus workStatus;
     private String reason;
+
+    public String getWorkStatusName() {
+        return Optional.ofNullable(workStatus).map(WorkLogStatus::getName).orElse("");
+    }
 
     public static EmployeeWorkLogDto convert(EmployeeWorkLog workLog) {
         return EmployeeWorkLogDto.builder()
