@@ -1,5 +1,5 @@
 # HR_MANAGER
-그룹웨어 인사시스템
+그룹웨어 인사시스템 토이 프로젝트
 
 ## Spec
 - Spring Boot 2.7.18
